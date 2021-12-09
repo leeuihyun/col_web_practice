@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        div.item:nth-child(1){background-color:blueviolet;}
+        div.item:nth-child(2){background-color:pink;}
+        div.item:nth-child(3){background-color:burlywood;}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            var width = $('[data-role="slider"]').attr('data-width');
+            var height = $('[data-role="slider"]').attr('data-height');
+            var count = $('[data-role="slider"] div.item').length;
+            
+            $('[data-role="slider"]').css({
+                position:'relative',
+                overflow:'hidden',
+                width:width,
+                height:height
+            }).find('.container').css({
+                position:'absolute',
+                width:count*width,
+                overflow:'hidden'
+            }).find('.item').css({
+                width:width,
+                height:height,
+                float:'left'
+            });
+            var currentPage = 0;
+            var changePage=function(){
+                $('[data-role="slider"]> .container').animate({
+                    left:-currentPage*width
+                },500);
+            };
+            $('#left-button').click(function(){
+                if(currentPage > 0){
+                    currentPage-=1;
+                    changePage();
+                }
+            })
+            $('#right-button').click(function(){
+                if(currentPage<count-1){
+                    currentPage+=1;
+                    changePage();
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div data-role="slider" data-width="500" data-height="300">
+        <div class="container">
+            <div class="item">
+                <h1>Lorem ipsum</h1>
+                <p>Lorem ipsum dolor siti amet, consectetur</p>
+            </div>
+            <div class="item">
+                <h1>Proin in urna turpis</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+            </div>
+            <div class = "item">
+                <h1>Duis malesuada lorem neque</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+            </div>
+            
+        </div>
+    </div>
+    <button id = "left-button">왼쪽</button>
+    <button id = "right-button">오른쪽</button>
+</body>
+</html>
